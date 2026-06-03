@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { t } from '../data';
 
 export default function Navbar() {
-  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout, setCartOpen, darkMode, toggleDarkMode } = useApp();
+  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout, setCartOpen } = useApp();
   const loc = useLocation();
 
   const isActive = (path: string) => loc.pathname === path ? ' active' : '';
@@ -24,29 +24,46 @@ export default function Navbar() {
             <li className="nav-item"><Link className={`nav-link${isActive('/cart')}`} to="/cart">{t('cart', lang)}</Link></li>
             <li className="nav-item"><Link className={`nav-link${isActive('/about')}`} to="/about">{t('about', lang)}</Link></li>
           </ul>
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center gap-3">
+            {/* Account / Login Section */}
             {user ? (
-              <>
-                <Link className="nav-link my-account-link" to="/account">
-                  <i className="bi bi-person-circle"></i> {t('myAccount', lang)}
+              <div className="d-flex align-items-center gap-2">
+                <Link className="user-account-tag" to="/account">
+                  <i className="bi bi-person-circle user-icon"></i>
+                  <span className="user-name">{user.name.split(' ')[0]}</span>
                 </Link>
-                <button className="btn btn-sm btn-outline-dark" onClick={doLogout} style={{ borderRadius: 20 }}><i className="bi bi-box-arrow-right"></i></button>
-              </>
+                <button className="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center" onClick={doLogout} style={{ borderRadius: '50%', width: 28, height: 28, padding: 0 }} title={lang === 'ru' ? 'Выйти' : 'Log Out'}>
+                  <i className="bi bi-box-arrow-right" style={{ fontSize: 13 }}></i>
+                </button>
+              </div>
             ) : (
-              <>
-                <Link className="btn btn-sm btn-outline-dark" to="/login" style={{ borderRadius: 20, textTransform: 'uppercase', fontSize: 12, letterSpacing: 1 }}>{t('signIn', lang)}</Link>
-                <Link className="btn btn-sm btn-dark" to="/login" style={{ borderRadius: 20, textTransform: 'uppercase', fontSize: 12, letterSpacing: 1 }}>{t('signUp', lang)}</Link>
-              </>
+              <div className="d-flex align-items-center gap-2">
+                <Link className="btn btn-link text-dark text-decoration-none fw-semibold p-0" to="/login" style={{ fontSize: 13 }}>
+                  {t('signIn', lang)}
+                </Link>
+                <Link className="btn btn-accent rounded-pill fw-semibold shadow-sm" to="/login" style={{ fontSize: 12, padding: '6px 14px', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                  {t('signUp', lang)}
+                </Link>
+              </div>
             )}
-            <button className="btn btn-outline-dark position-relative animate-hover" onClick={() => setCartOpen(true)} style={{ borderRadius: 20 }}>
+
+            {/* Cart Pill Button */}
+            <button className="btn btn-accent pill-cart-btn shadow-sm" onClick={() => setCartOpen(true)}>
               <i className="bi bi-cart3"></i>
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: 10 }}>{cartCount()}</span>
+              <div className="cart-divider"></div>
+              <span>{cartCount()}</span>
             </button>
-            <button className="btn btn-sm btn-outline-dark" onClick={() => setCurrency(currency === 'USD' ? 'RUB' : 'USD')} style={{ borderRadius: 20 }}>{currency}</button>
-            <button className="btn btn-sm btn-outline-dark" onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')} style={{ borderRadius: 20 }}>{lang === 'ru' ? 'EN' : 'RU'}</button>
-            <button className="btn btn-sm btn-outline-dark d-flex align-items-center justify-content-center" onClick={toggleDarkMode} style={{ borderRadius: 20, width: 32, height: 32, padding: 0 }}>
-              <i className={`bi bi-${darkMode ? 'sun' : 'moon'}`}></i>
-            </button>
+
+            {/* Switcher Pill */}
+            <div className="settings-pill">
+              <button className="settings-pill-btn" onClick={() => setCurrency(currency === 'USD' ? 'RUB' : 'USD')}>
+                {currency}
+              </button>
+              <div className="settings-pill-divider"></div>
+              <button className="settings-pill-btn" onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}>
+                {lang === 'ru' ? 'EN' : 'RU'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

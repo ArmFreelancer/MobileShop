@@ -35,8 +35,6 @@ interface AppCtx {
   doLogout: () => void;
   cartOpen: boolean;
   setCartOpen: (open: boolean) => void;
-  darkMode: boolean;
-  toggleDarkMode: () => void;
 }
 
 const Ctx = createContext<AppCtx>(null!);
@@ -48,11 +46,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => (load<Lang>('pm_lang', 'ru')));
   const [toasts, setToasts] = useState<ToastMsg[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem('pm_dark_mode');
-    if (saved !== null) return saved === 'true';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
   const refreshUser = useCallback(() => setUser(currentUser()), []);
 
   useEffect(() => { setUser(currentUser()); setCart(loadCart()); }, []);
@@ -60,19 +53,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => { saveCart(cart); }, [cart]);
   useEffect(() => { localStorage.setItem('pm_currency', currency); }, [currency]);
   useEffect(() => { localStorage.setItem('pm_lang', lang); }, [lang]);
-
-  useEffect(() => {
-    localStorage.setItem('pm_dark_mode', String(darkMode));
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  const toggleDarkMode = useCallback(() => {
-    setDarkMode(prev => !prev);
-  }, []);
 
 
 
@@ -158,7 +138,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       changeQty: changeQtyHandler, clearCart: clearCartHandler,
       cartTotal: () => cartTotal(cart), cartCount: () => cartCount(cart),
       toast: addToast, toasts, checkout: checkoutHandler, loginUser, refreshUser, doLogout,
-      cartOpen, setCartOpen, darkMode, toggleDarkMode,
+      cartOpen, setCartOpen,
     }}>
       {children}
     </Ctx.Provider>
