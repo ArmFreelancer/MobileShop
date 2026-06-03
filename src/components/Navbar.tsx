@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { t } from '../data';
 
 export default function Navbar() {
-  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout } = useApp();
+  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout, setCartOpen } = useApp();
   const loc = useLocation();
 
   const isActive = (path: string) => loc.pathname === path ? ' active' : '';
@@ -38,10 +38,10 @@ export default function Navbar() {
                 <Link className="btn btn-sm btn-dark" to="/login" style={{ borderRadius: 20, textTransform: 'uppercase', fontSize: 12, letterSpacing: 1 }}>{t('signUp', lang)}</Link>
               </>
             )}
-            <Link className="btn btn-outline-dark position-relative" to="/cart" style={{ borderRadius: 20 }}>
+            <button className="btn btn-outline-dark position-relative animate-hover" onClick={() => setCartOpen(true)} style={{ borderRadius: 20 }}>
               <i className="bi bi-cart3"></i>
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: 10 }}>{cartCount()}</span>
-            </Link>
+            </button>
             <button className="btn btn-sm btn-outline-dark" onClick={() => setCurrency(currency === 'USD' ? 'RUB' : 'USD')} style={{ borderRadius: 20 }}>{currency}</button>
             <button className="btn btn-sm btn-outline-dark" onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')} style={{ borderRadius: 20 }}>{lang === 'ru' ? 'EN' : 'RU'}</button>
           </div>

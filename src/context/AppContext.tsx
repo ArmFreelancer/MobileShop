@@ -33,6 +33,8 @@ interface AppCtx {
   loginUser: () => boolean;
   refreshUser: () => void;
   doLogout: () => void;
+  cartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
 }
 
 const Ctx = createContext<AppCtx>(null!);
@@ -43,6 +45,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [currency, setCurrency] = useState<Currency>(() => (load<Currency>('pm_currency', 'USD')));
   const [lang, setLang] = useState<Lang>(() => (load<Lang>('pm_lang', 'ru')));
   const [toasts, setToasts] = useState<ToastMsg[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
   const refreshUser = useCallback(() => setUser(currentUser()), []);
 
   useEffect(() => { setUser(currentUser()); setCart(loadCart()); }, []);
@@ -62,6 +65,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const addToCartHandler = useCallback((p: { id: number; name: string; price: number; img: string; brand: string }) => {
     setCart(prev => addToCartFn(prev, p as any));
     addToast(`${p.name} +`, 'success');
+    setCartOpen(true);
   }, [addToast]);
 
   const removeFromCartHandler = useCallback((id: number) => setCart(prev => removeFn(prev, id)), []);
@@ -134,6 +138,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       changeQty: changeQtyHandler, clearCart: clearCartHandler,
       cartTotal: () => cartTotal(cart), cartCount: () => cartCount(cart),
       toast: addToast, toasts, checkout: checkoutHandler, loginUser, refreshUser, doLogout,
+      cartOpen, setCartOpen,
     }}>
       {children}
     </Ctx.Provider>

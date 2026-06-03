@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
+import CartDrawer from './components/CartDrawer';
 import ToastContainer from './components/ToastContainer';
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
@@ -16,6 +17,7 @@ export default function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppProvider>
         <Navbar />
+        <CartDrawer />
         <main style={{ minHeight: 'calc(100vh - 80px)' }}>
           <Routes>
             <Route path="/" element={<Home />} />
