@@ -12,15 +12,6 @@
   --border: #eee;
 }
 
-html.dark {
-  --light: #0f172a;
-  --dark: #f8fafc;
-  --card-bg: #1e293b;
-  --border: #334155;
-  --text: #f1f5f9;
-  --text-light: #94a3b8;
-}
-
 a { color: var(--accent); text-decoration: none; }
 .text-accent { color: var(--accent) !important; }
 .btn-accent {
@@ -46,10 +37,9 @@ a { color: var(--accent); text-decoration: none; }
 
 html, body {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: var(--light) !important;
-  background-color: var(--light) !important;
-  color: var(--text) !important;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: var(--dark);
 }
 
 .card {
@@ -315,83 +305,6 @@ html, body {
 .table { margin-bottom: 0; }
 .table td, .table th { padding: 12px 16px; }
 
-/* Dark Mode Overrides */
-html.dark a {
-  color: #60a5fa;
-}
-html.dark .text-muted, html.dark small {
-  color: var(--text-light) !important;
-}
-html.dark p, html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6, html.dark span, html.dark label {
-  color: var(--text) !important;
-}
-
-html.dark .navbar {
-  background-color: var(--card-bg) !important;
-  border-bottom: 1px solid var(--border) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,.05) !important;
-}
-html.dark .navbar .navbar-brand, html.dark .navbar .nav-link {
-  color: var(--text) !important;
-}
-html.dark .navbar .nav-link.active {
-  border-bottom-color: var(--text) !important;
-}
-html.dark .my-account-link {
-  color: var(--text) !important;
-}
-
-html.dark .btn-outline-dark {
-  border-color: var(--border) !important;
-  color: var(--text) !important;
-}
-html.dark .btn-outline-dark:hover {
-  background: var(--text) !important;
-  color: var(--light) !important;
-}
-html.dark .btn-dark {
-  background: var(--text) !important;
-  color: var(--light) !important;
-  border-color: var(--text) !important;
-}
-html.dark .btn-dark:hover {
-  background: var(--text-light) !important;
-  border-color: var(--text-light) !important;
-}
-
-html.dark .form-control, html.dark .form-select {
-  background: #1e293b !important;
-  border-color: #334155 !important;
-  color: #f1f5f9 !important;
-}
-html.dark .form-control:focus, html.dark .form-select:focus {
-  border-color: #3b82f6 !important;
-  box-shadow: 0 0 0 .15rem rgba(59, 130, 246, 0.25) !important;
-}
-html.dark .form-control::placeholder {
-  color: #64748b !important;
-}
-
-html.dark .table {
-  color: var(--text) !important;
-}
-html.dark .table-bordered th, html.dark .table-bordered td {
-  border-color: var(--border) !important;
-}
-html.dark .table th {
-  background: #1e293b !important;
-  color: var(--text) !important;
-}
-html.dark .table td {
-  background: #0f172a !important;
-  color: var(--text) !important;
-}
-
-html.dark .price-badge {
-  background: var(--text) !important;
-  color: var(--light) !important;
-}
-
 /* Telegram checkout button styling */
 .checkout-btn {
   background: #24A1DE !important;
@@ -401,13 +314,4 @@ html.dark .price-badge {
 }
 .checkout-btn:hover {
   opacity: 0.9;
-}
-
-/* bg-light panels (About & Cart summary containers) */
-.bg-light-custom {
-  background: #f5f7fa !important;
-  transition: background-color 0.3s ease;
-}
-html.dark .bg-light-custom {
-  background: #1e293b !important;
 }
