@@ -59,13 +59,85 @@ body {
 .hero-section {
   position: relative;
   overflow: hidden;
+  background: radial-gradient(circle at 10% 20%, #1e3a8a 0%, #0f172a 90%);
+  padding: 100px 0;
+  border-bottom: none !important;
+}
+
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+  animation: float-blob 20s infinite alternate ease-in-out;
+}
+.hero-blob-1 {
+  width: 300px;
+  height: 300px;
+  background: #3b82f6;
+  top: -50px;
+  left: -50px;
+}
+.hero-blob-2 {
+  width: 400px;
+  height: 400px;
+  background: #7c3aed;
+  bottom: -100px;
+  right: -50px;
+  animation-duration: 25s;
+  animation-delay: -5s;
+}
+.hero-blob-3 {
+  width: 250px;
+  height: 250px;
+  background: #06b6d4;
+  top: 50%;
+  left: 60%;
+  animation-duration: 15s;
+  animation-delay: -10s;
+}
+
+@keyframes float-blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.hero-cta-btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
 }
 
 .phone-card {
   cursor: default;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+}
+.phone-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.15) !important;
 }
 .phone-card img {
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.1));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.08));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.phone-card:hover img {
+  transform: scale(1.05);
+}
+
+.feature-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border-radius: 16px !important;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
 }
 
 .price-badge {
@@ -111,36 +183,36 @@ body {
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .scroll-fade {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity .5s ease, transform .5s ease;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scroll-fade.visible {
   opacity: 1;
   transform: translateY(0);
 }
 .scroll-fade-left {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity .5s ease, transform .5s ease;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scroll-fade-left.visible {
   opacity: 1;
   transform: translateX(0);
 }
 .scroll-fade-right {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity .5s ease, transform .5s ease;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scroll-fade-right.visible {
   opacity: 1;
   transform: translateX(0);
 }
 .scroll-scale {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity .5s ease, transform .5s ease;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scroll-scale.visible {
   opacity: 1;
@@ -159,11 +231,17 @@ body {
 }
 
 .ad-banner {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  border-radius: 16px;
-  padding: 40px;
+  background: linear-gradient(135deg, #1e40af, #7c3aed) !important;
+  border-radius: 20px !important;
+  padding: 50px 30px !important;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.ad-banner:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35);
 }
 
 .form-control, .form-select {

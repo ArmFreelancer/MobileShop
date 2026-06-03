@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import PhoneCard from '../components/PhoneCard';
 import { useApp } from '../context/AppContext';
 import { PHONES, BRANDS, t } from '../data';
@@ -12,13 +13,16 @@ export default function Home() {
 
   return (
     <>
-      <section className="text-center py-5" style={{ background: '#f8fafc', borderBottom: '1px solid #eee' }}>
-        <div className="container py-4">
-          <h1 className="display-4 fw-bold mb-3" style={{ color: '#111' }}>{t('heroTitle', lang)}</h1>
-          <p className="lead mb-4 mx-auto" style={{ color: '#888', maxWidth: 600 }}>{t('heroSub', lang)}</p>
-          <a href="/catalog" className="btn btn-dark btn-lg px-5 py-3 fw-semibold" style={{ borderRadius: 30 }}>
+      <section className="hero-section text-center py-5">
+        <div className="hero-blob hero-blob-1"></div>
+        <div className="hero-blob hero-blob-2"></div>
+        <div className="hero-blob hero-blob-3"></div>
+        <div className="container py-4 position-relative" style={{ zIndex: 2 }}>
+          <h1 className="display-4 fw-bold mb-3 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>{t('heroTitle', lang)}</h1>
+          <p className="lead mb-4 mx-auto text-white-50" style={{ maxWidth: 600, textShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>{t('heroSub', lang)}</p>
+          <Link to="/catalog" className="btn btn-light btn-lg px-5 py-3 fw-semibold shadow-sm hero-cta-btn" style={{ borderRadius: 30 }}>
             <i className="bi bi-arrow-right"></i> {t('heroBtn', lang)}
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -32,7 +36,7 @@ export default function Home() {
             { icon: 'bi-headset', title: t('why4', lang), desc: t('why4desc', lang) },
           ].map((item, i) => (
             <div key={i} className="col-6 col-lg-3 text-center scroll-scale">
-              <div className="card border-0 shadow-sm p-4 h-100">
+              <div className="card border-0 shadow-sm p-4 h-100 feature-card">
                 <div className="feature-icon" style={{ background: '#e0f2fe', color: '#2563eb' }}>
                   <i className={`bi ${item.icon}`}></i>
                 </div>
@@ -53,7 +57,7 @@ export default function Home() {
             { phone: PHONES[16], title: t('new3', lang), desc: t('new3desc', lang) },
           ].map((item, i) => (
             <div key={i} className="col-md-4 scroll-scale">
-              <a href={`/phone/${item.phone.id}`} className="card border-0 h-100 overflow-hidden" style={{ textDecoration: 'none', borderRadius: 16, boxShadow: '0 4px 20px rgba(0,0,0,.06)' }}>
+              <Link to={`/phone/${item.phone.id}`} className="card border-0 h-100 overflow-hidden" style={{ textDecoration: 'none', borderRadius: 16, boxShadow: '0 4px 20px rgba(0,0,0,.06)' }}>
                 <div style={{ padding: '20px', textAlign: 'center', height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img src={item.phone.img} alt={item.phone.name}
                     style={{ height: '100%', maxHeight: 220, objectFit: 'contain', maxWidth: '100%', filter: 'drop-shadow(0 8px 24px rgba(0,0,0,.1))' }}
@@ -65,7 +69,7 @@ export default function Home() {
                   <p style={{ color: '#888', fontSize: 13, marginBottom: 8 }}>{item.desc}</p>
                   <span className="fw-semibold" style={{ color: '#2563eb', fontSize: 13 }}>{t('newBtn', lang)} →</span>
                 </div>
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -75,7 +79,7 @@ export default function Home() {
         <h2 className="text-center mb-4 fw-bold">{t('brandsTitle', lang)}</h2>
         <div className="d-flex flex-wrap gap-3 justify-content-center">
           {BRANDS.map(b => (
-            <a key={b} href={`/catalog?brand=${b}`} className="btn btn-outline-dark px-4" style={{ borderRadius: 20, textTransform: 'capitalize' }}>{b}</a>
+            <Link key={b} to={`/catalog?brand=${b}`} className="btn btn-outline-dark px-4" style={{ borderRadius: 20, textTransform: 'capitalize' }}>{b}</Link>
           ))}
         </div>
       </section>
@@ -87,7 +91,7 @@ export default function Home() {
           <div className="position-relative">
             <h3 className="fw-bold mb-2">{t('bannerTitle', lang)}</h3>
             <p className="mb-3" style={{ color: 'rgba(255,255,255,.7)' }}>{t('bannerText', lang)}</p>
-            <a href="/catalog" className="btn btn-light px-5 py-2 fw-semibold" style={{ borderRadius: 30, color: '#1d4ed8' }}>{t('bannerBtn', lang)}</a>
+            <Link to="/catalog" className="btn btn-light px-5 py-2 fw-semibold" style={{ borderRadius: 30, color: '#1d4ed8' }}>{t('bannerBtn', lang)}</Link>
           </div>
         </div>
       </section>
@@ -98,7 +102,7 @@ export default function Home() {
           {popular.map(p => <PhoneCard key={p.id} phone={p} />)}
         </div>
         <div className="text-center mt-4">
-          <a href="/catalog" className="btn btn-outline-accent btn-lg" style={{ borderRadius: 30 }}>{t('allCatalog', lang)}</a>
+          <Link to="/catalog" className="btn btn-outline-accent btn-lg" style={{ borderRadius: 30 }}>{t('allCatalog', lang)}</Link>
         </div>
       </section>
 

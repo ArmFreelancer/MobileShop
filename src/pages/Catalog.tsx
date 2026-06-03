@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PhoneCard from '../components/PhoneCard';
 import { useApp } from '../context/AppContext';
-import { PHONES, BRANDS, t } from '../data';
+import { PHONES, BRANDS, CURRENCIES, t } from '../data';
 
 const ALL_STORAGE = ['all', ...new Set(PHONES.map(p => p.storage))].sort((a, b) => {
   if (a === 'all') return -1;
@@ -11,7 +11,7 @@ const ALL_STORAGE = ['all', ...new Set(PHONES.map(p => p.storage))].sort((a, b) 
 });
 
 export default function Catalog() {
-  const { lang } = useApp();
+  const { lang, currency } = useApp();
   const [searchParams] = useSearchParams();
   const initial = searchParams.get('brand') || 'all';
   const [brand, setBrand] = useState<string>(initial);
@@ -20,12 +20,14 @@ export default function Catalog() {
   const [priceMax, setPriceMax] = useState('');
   const [storage, setStorage] = useState<string>('all');
 
+  const rate = CURRENCIES[currency] ?? 1;
   const byBrand = brand === 'all' ? PHONES : PHONES.filter(p => p.brand === brand);
   const searched = query ? byBrand.filter(p => p.name.toLowerCase().includes(query.toLowerCase())) : byBrand;
   const byStorage = storage === 'all' ? searched : searched.filter(p => p.storage === storage);
   const list = byStorage.filter(p => {
-    if (priceMin && p.price < Number(priceMin)) return false;
-    if (priceMax && p.price > Number(priceMax)) return false;
+    const convertedPrice = p.price * rate;
+    if (priceMin && convertedPrice < Number(priceMin)) return false;
+    if (priceMax && convertedPrice > Number(priceMax)) return false;
     return true;
   });
 

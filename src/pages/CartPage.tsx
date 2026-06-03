@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { t } from '../data';
 
@@ -9,7 +10,7 @@ export default function CartPage() {
       <div className="container my-5 text-center py-5">
         <i className="bi bi-cart-x" style={{ fontSize: 64, color: '#ccc' }}></i>
         <h4 className="mt-3">{t('cartEmpty', lang)}</h4>
-        <a href="/catalog" className="btn btn-accent mt-2" style={{ borderRadius: 8 }}>{t('goCatalog', lang)}</a>
+        <Link to="/catalog" className="btn btn-accent mt-2" style={{ borderRadius: 8 }}>{t('goCatalog', lang)}</Link>
       </div>
     );
   }

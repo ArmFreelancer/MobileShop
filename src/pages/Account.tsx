@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { t } from '../data';
 
@@ -8,7 +9,7 @@ export default function Account() {
     return (
       <div className="container my-5 text-center py-5">
         <p className="text-muted">{t('loginRequired', lang)}</p>
-        <a href="/login" className="btn btn-accent" style={{ borderRadius: 8 }}>{t('signIn', lang)}</a>
+        <Link to="/login" className="btn btn-accent" style={{ borderRadius: 8 }}>{t('signIn', lang)}</Link>
       </div>
     );
   }

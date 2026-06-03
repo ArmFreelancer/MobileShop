@@ -13,7 +13,7 @@ import Compare from './pages/Compare';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppProvider>
         <Navbar />
         <main style={{ minHeight: 'calc(100vh - 80px)' }}>

@@ -5,9 +5,8 @@ import { t } from '../data';
 export default function Navbar() {
   const { user, lang, setLang, currency, setCurrency, cartCount, doLogout } = useApp();
   const loc = useLocation();
-  const page = loc.pathname.slice(1) || 'index.html';
 
-  const isActive = (href: string) => page === href ? ' active' : '';
+  const isActive = (path: string) => loc.pathname === path ? ' active' : '';
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top" style={{ borderBottom: '1px solid #eee' }}>
@@ -20,10 +19,10 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navMenu">
           <ul className="navbar-nav me-auto">
-            <li className="nav-item"><Link className={`nav-link${isActive('index.html')}`} to="/">{t('home', lang)}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${isActive('catalog.html')}`} to="/catalog">{t('catalog', lang)}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${isActive('cart.html')}`} to="/cart">{t('cart', lang)}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${isActive('about.html')}`} to="/about">{t('about', lang)}</Link></li>
+            <li className="nav-item"><Link className={`nav-link${isActive('/')}`} to="/">{t('home', lang)}</Link></li>
+            <li className="nav-item"><Link className={`nav-link${isActive('/catalog')}`} to="/catalog">{t('catalog', lang)}</Link></li>
+            <li className="nav-item"><Link className={`nav-link${isActive('/cart')}`} to="/cart">{t('cart', lang)}</Link></li>
+            <li className="nav-item"><Link className={`nav-link${isActive('/about')}`} to="/about">{t('about', lang)}</Link></li>
           </ul>
           <div className="d-flex align-items-center gap-2">
             {user ? (
