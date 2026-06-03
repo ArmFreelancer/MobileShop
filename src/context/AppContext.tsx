@@ -21,9 +21,9 @@ interface AppCtx {
   lang: Lang;
   setLang: (l: Lang) => void;
   fmtPrice: (kzt: number) => string;
-  addToCart: (p: { id: number; name: string; price: number; img: string; brand: string }) => void;
-  removeFromCart: (id: number) => void;
-  changeQty: (id: number, d: number) => void;
+  addToCart: (p: any, config?: { color: string; storage: string; price: number }) => void;
+  removeFromCart: (cartId: string) => void;
+  changeQty: (cartId: string, d: number) => void;
   clearCart: () => void;
   cartTotal: () => number;
   cartCount: () => number;
@@ -62,14 +62,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 2500);
   }, []);
 
-  const addToCartHandler = useCallback((p: { id: number; name: string; price: number; img: string; brand: string }) => {
-    setCart(prev => addToCartFn(prev, p as any));
+  const addToCartHandler = useCallback((p: any, config?: { color: string; storage: string; price: number }) => {
+    setCart(prev => addToCartFn(prev, p, config));
     addToast(`${p.name} +`, 'success');
     setCartOpen(true);
   }, [addToast]);
 
-  const removeFromCartHandler = useCallback((id: number) => setCart(prev => removeFn(prev, id)), []);
-  const changeQtyHandler = useCallback((id: number, d: number) => setCart(prev => changeQtyFn(prev, id, d)), []);
+  const removeFromCartHandler = useCallback((cartId: string) => setCart(prev => removeFn(prev, cartId)), []);
+  const changeQtyHandler = useCallback((cartId: string, d: number) => setCart(prev => changeQtyFn(prev, cartId, d)), []);
   const clearCartHandler = useCallback(() => setCart(clearFn()), []);
 
   const fmtPriceCb = useCallback((kzt: number) => fmtPrice(kzt, currency), [currency]);
@@ -83,7 +83,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       : `Hello! I would like to place an order at PhoneMarket:\n\n`;
 
     cart.forEach(i => {
-      msg += `• ${i.name} (${i.storage}) x ${i.qty} — ${fmtPriceCb(i.price * i.qty)}\n`;
+      const colorInfo = i.selectedColor && i.selectedColor !== 'Standard' ? `, ${i.selectedColor}` : '';
+      msg += `• ${i.name} (${i.storage}${colorInfo}) x ${i.qty} — ${fmtPriceCb(i.price * i.qty)}\n`;
     });
     msg += `\n----------------------\n`;
     msg += lang === 'ru' 

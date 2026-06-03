@@ -21,7 +21,7 @@ export default function CartPage() {
       <div className="row">
         <div className="col-lg-8">
           {cart.map(i => (
-            <div key={i.id} className="cart-item d-flex align-items-center flex-wrap flex-sm-nowrap gap-3 fade-in p-3 mb-3"
+            <div key={i.cartId} className="cart-item d-flex align-items-center flex-wrap flex-sm-nowrap gap-3 fade-in p-3 mb-3"
               style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee' }}>
               <div style={{ borderRadius: 8, padding: 8 }}>
                 <img src={i.img} alt={i.name} style={{ width: 80, height: 80, objectFit: 'contain', filter: 'drop-shadow(0 2px 6px rgba(0,0,0,.08))' }}
@@ -29,16 +29,19 @@ export default function CartPage() {
               </div>
               <div className="flex-grow-1 min-w-0">
                 <h6 className="fw-semibold mb-1">{i.name}</h6>
+                <small className="text-muted d-block mb-1" style={{ fontSize: 12 }}>
+                  {i.brand.toUpperCase()} • {i.selectedColor} • {i.storage}
+                </small>
                 <span className="fw-bold">{fmtPrice(i.price)}</span>
               </div>
               <div className="qty-control d-flex align-items-center">
-                <button className="btn btn-sm btn-outline-dark px-2" onClick={() => changeQty(i.id, -1)}>−</button>
+                <button className="btn btn-sm btn-outline-dark px-2" onClick={() => changeQty(i.cartId, -1)}>−</button>
                 <span className="mx-2 fw-bold">{i.qty}</span>
-                <button className="btn btn-sm btn-outline-dark px-2" onClick={() => changeQty(i.id, 1)}>+</button>
+                <button className="btn btn-sm btn-outline-dark px-2" onClick={() => changeQty(i.cartId, 1)}>+</button>
               </div>
               <div className="fw-bold" style={{ minWidth: 80, textAlign: 'right' }}>
                 {fmtPrice(i.price * i.qty)}</div>
-              <button className="btn btn-sm btn-outline-danger" onClick={() => removeFromCart(i.id)}><i className="bi bi-trash"></i></button>
+              <button className="btn btn-sm btn-outline-danger" onClick={() => removeFromCart(i.cartId)}><i className="bi bi-trash"></i></button>
             </div>
           ))}
         </div>

@@ -10,7 +10,10 @@ export interface Phone {
 }
 
 export interface CartItem extends Phone {
+  cartId: string;
   qty: number;
+  selectedColor: string;
+  selectedStorage: string;
 }
 
 export interface User {
