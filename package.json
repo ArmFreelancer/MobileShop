@@ -2,7 +2,7 @@
   "name": "phonemarket",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://ArmFreelancer.github.io/MobileShop",
+  "homepage": "https://ArmFreelancer.github.io/PhoneMarket",
   "type": "module",
   "scripts": {
     "dev": "vite",
