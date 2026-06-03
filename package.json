@@ -1,0 +1,27 @@
+{
+  "name": "phonemarket",
+  "private": true,
+  "version": "0.0.0",
+  "homepage": "https://your-username.github.io/phonemarket",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && node -e \"fs.copyFileSync('dist/index.html','dist/404.html')\"",
+    "preview": "vite preview",
+    "deploy": "npm run build && npx gh-pages -d dist -b gh-pages --dotfiles"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "gh-pages": "^6.3.0",
+    "react": "^19.2.12",
+    "react-dom": "^19.2.12",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "react-router-dom": "^7.16.0"
+  }
+}
