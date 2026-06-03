@@ -12,20 +12,11 @@ export default function Home() {
 
   return (
     <>
-      <section className="text-center py-5 position-relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f2744 0%, #1e3a8a 30%, #2563eb 65%, #1d4ed8 100%)' }}>
-        <div className="position-absolute" style={{ top: '-100px', right: '-60px', width: 350, height: 350, borderRadius: '50%', background: 'rgba(255,255,255,.05)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ bottom: '-80px', left: '-80px', width: 250, height: 250, borderRadius: '50%', background: 'rgba(255,255,255,.04)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ top: '20%', left: '5%', width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,.03)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ bottom: '15%', right: '10%', width: 140, height: 140, borderRadius: '50%', background: 'rgba(255,255,255,.04)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ top: '15%', right: '25%', width: 50, height: 50, borderRadius: '50%', background: 'rgba(255,255,255,.06)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ bottom: '30%', left: '20%', width: 60, height: 60, borderRadius: '50%', background: 'rgba(255,255,255,.05)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ top: '50%', left: '45%', width: 30, height: 30, borderRadius: '50%', background: 'rgba(255,255,255,.07)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent)', pointerEvents: 'none' }}></div>
-        <div className="position-absolute" style={{ bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent)', pointerEvents: 'none' }}></div>
-        <div className="container position-relative py-4">
-          <h1 className="display-4 fw-bold mb-3 text-white">{t('heroTitle', lang)}</h1>
-          <p className="lead mb-4 mx-auto" style={{ color: 'rgba(255,255,255,.7)', maxWidth: 600 }}>{t('heroSub', lang)}</p>
-          <a href="/catalog" className="btn btn-light btn-lg px-5 py-3 fw-semibold" style={{ borderRadius: 30, color: '#1d4ed8' }}>
+      <section className="text-center py-5" style={{ background: '#f8fafc', borderBottom: '1px solid #eee' }}>
+        <div className="container py-4">
+          <h1 className="display-4 fw-bold mb-3" style={{ color: '#111' }}>{t('heroTitle', lang)}</h1>
+          <p className="lead mb-4 mx-auto" style={{ color: '#888', maxWidth: 600 }}>{t('heroSub', lang)}</p>
+          <a href="/catalog" className="btn btn-dark btn-lg px-5 py-3 fw-semibold" style={{ borderRadius: 30 }}>
             <i className="bi bi-arrow-right"></i> {t('heroBtn', lang)}
           </a>
         </div>
