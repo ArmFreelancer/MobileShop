@@ -4,6 +4,12 @@
   <p><strong>A modern e-commerce SPA for smartphones built with React + TypeScript</strong></p>
 
   <p>
+    <a href="https://ArmFreelancer.github.io/PhoneMarket/">
+      <img src="https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=github&logoColor=white" alt="Live Demo"/>
+    </a>
+  </p>
+
+  <p>
     <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19"/>
     <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript"/>
     <img src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" alt="Vite 6"/>
@@ -34,8 +40,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/phonemarket.git
-cd phonemarket
+git clone https://github.com/ArmFreelancer/PhoneMarket.git
+cd PhoneMarket
 
 # Install dependencies
 npm install
