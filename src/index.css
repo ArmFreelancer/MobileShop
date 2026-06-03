@@ -37,7 +37,7 @@ a { color: var(--accent); text-decoration: none; }
 
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background: var(--light);
+  background: #ffffff !important;
   color: var(--dark);
 }
 
