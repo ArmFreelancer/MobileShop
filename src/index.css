@@ -35,9 +35,10 @@ a { color: var(--accent); text-decoration: none; }
 }
 .bg-accent { background: var(--accent) !important; }
 
-body {
+html, body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: #ffffff !important;
+  background-color: #ffffff !important;
   color: var(--dark);
 }
 
