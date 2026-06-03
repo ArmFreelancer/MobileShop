@@ -56,7 +56,7 @@ export default function CartPage() {
               <span>{t('total', lang)}</span><span>{fmtPrice(cartTotal())}</span>
             </div>
             <button className="btn btn-accent w-100 mb-2 checkout-btn" onClick={checkout} style={{ borderRadius: 8 }}>
-              <i className="bi bi-whatsapp"></i> {t('checkout', lang)}
+              <i className="bi bi-telegram"></i> {t('checkout', lang)}
             </button>
             <button className="btn btn-outline-accent w-100 clear-cart-btn" onClick={clearCart} style={{ borderRadius: 8 }}>
               <i className="bi bi-trash"></i> {t('clearCart', lang)}

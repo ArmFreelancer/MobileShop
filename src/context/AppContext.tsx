@@ -33,6 +33,8 @@ interface AppCtx {
   loginUser: () => boolean;
   refreshUser: () => void;
   doLogout: () => void;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 const Ctx = createContext<AppCtx>(null!);
@@ -43,6 +45,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [currency, setCurrency] = useState<Currency>(() => (load<Currency>('pm_currency', 'USD')));
   const [lang, setLang] = useState<Lang>(() => (load<Lang>('pm_lang', 'ru')));
   const [toasts, setToasts] = useState<ToastMsg[]>([]);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('pm_dark_mode');
+    if (saved !== null) return saved === 'true';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
 
   const refreshUser = useCallback(() => setUser(currentUser()), []);
 
@@ -51,6 +58,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => { saveCart(cart); }, [cart]);
   useEffect(() => { localStorage.setItem('pm_currency', currency); }, [currency]);
   useEffect(() => { localStorage.setItem('pm_lang', lang); }, [lang]);
+
+  useEffect(() => {
+    localStorage.setItem('pm_dark_mode', String(darkMode));
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode(prev => !prev);
+  }, []);
 
   const addToast = useCallback((text: string, type: 'success' | 'error') => {
     const id = Date.now();
@@ -70,18 +90,54 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const fmtPriceCb = useCallback((kzt: number) => fmtPrice(kzt, currency), [currency]);
 
   const checkoutHandler = useCallback(() => {
-    if (!user) { addToast('orderRequired', 'error'); return; }
     if (!cart.length) { addToast('cartEmpty', 'error'); return; }
-    addOrderToUser(user.email, {
-      id: Date.now(),
-      items: JSON.parse(JSON.stringify(cart)),
-      total: cartTotal(cart),
-      date: new Date().toLocaleString(),
-      status: 'History',
+
+    // Format Telegram order message
+    let msg = lang === 'ru' 
+      ? `Здравствуйте! Я хочу сделать заказ в PhoneMarket:\n\n`
+      : `Hello! I would like to place an order at PhoneMarket:\n\n`;
+
+    cart.forEach(i => {
+      msg += `• ${i.name} (${i.storage}) x ${i.qty} — ${fmtPriceCb(i.price * i.qty)}\n`;
     });
-    setCart(clearFn());
-    addToast('orderSuccess', 'success');
-  }, [user, cart, addToast]);
+    msg += `\n----------------------\n`;
+    msg += lang === 'ru' 
+      ? `Итого: ${fmtPriceCb(cartTotal(cart))}\n`
+      : `Total: ${fmtPriceCb(cartTotal(cart))}\n`;
+
+    if (user) {
+      msg += lang === 'ru'
+        ? `Покупатель: ${user.name} (${user.email})`
+        : `Customer: ${user.name} (${user.email})`;
+    }
+
+    // Copy details to clipboard automatically
+    navigator.clipboard.writeText(msg).then(() => {
+      addToast(lang === 'ru' 
+        ? 'Детали заказа скопированы! Переходим в Telegram...' 
+        : 'Order details copied! Opening Telegram...', 'success');
+    }).catch(() => {
+      addToast(lang === 'ru' ? 'Открываем Telegram...' : 'Opening Telegram...', 'success');
+    });
+
+    // Save order details to user history if logged in
+    if (user) {
+      addOrderToUser(user.email, {
+        id: Date.now(),
+        items: JSON.parse(JSON.stringify(cart)),
+        total: cartTotal(cart),
+        date: new Date().toLocaleString(),
+        status: 'Telegram Checkout',
+      });
+    }
+
+    // Redirect to Telegram and clear cart after delay
+    setTimeout(() => {
+      window.open('https://t.me/armen_levonyan01', '_blank');
+      setCart(clearFn());
+    }, 1500);
+
+  }, [user, cart, addToast, lang, fmtPriceCb]);
 
   const loginUser = useCallback(() => {
     refreshUser();
@@ -97,6 +153,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       changeQty: changeQtyHandler, clearCart: clearCartHandler,
       cartTotal: () => cartTotal(cart), cartCount: () => cartCount(cart),
       toast: addToast, toasts, checkout: checkoutHandler, loginUser, refreshUser, doLogout,
+      darkMode, toggleDarkMode,
     }}>
       {children}
     </Ctx.Provider>

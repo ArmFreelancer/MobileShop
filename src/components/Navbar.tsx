@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { t } from '../data';
 
 export default function Navbar() {
-  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout } = useApp();
+  const { user, lang, setLang, currency, setCurrency, cartCount, doLogout, darkMode, toggleDarkMode } = useApp();
   const loc = useLocation();
 
   const isActive = (path: string) => loc.pathname === path ? ' active' : '';
@@ -27,7 +27,7 @@ export default function Navbar() {
           <div className="d-flex align-items-center gap-2">
             {user ? (
               <>
-                <Link className="nav-link my-account-link" to="/account" style={{ color: '#000' }}>
+                <Link className="nav-link my-account-link" to="/account">
                   <i className="bi bi-person-circle"></i> {t('myAccount', lang)}
                 </Link>
                 <button className="btn btn-sm btn-outline-dark" onClick={doLogout} style={{ borderRadius: 20 }}><i className="bi bi-box-arrow-right"></i></button>
@@ -44,6 +44,9 @@ export default function Navbar() {
             </Link>
             <button className="btn btn-sm btn-outline-dark" onClick={() => setCurrency(currency === 'USD' ? 'RUB' : 'USD')} style={{ borderRadius: 20 }}>{currency}</button>
             <button className="btn btn-sm btn-outline-dark" onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')} style={{ borderRadius: 20 }}>{lang === 'ru' ? 'EN' : 'RU'}</button>
+            <button className="btn btn-sm btn-outline-dark d-flex align-items-center justify-content-center" onClick={toggleDarkMode} style={{ borderRadius: 20, width: 32, height: 32, padding: 0 }}>
+              <i className={`bi bi-${darkMode ? 'sun' : 'moon'}`}></i>
+            </button>
           </div>
         </div>
       </div>

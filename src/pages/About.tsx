@@ -31,7 +31,7 @@ export default function About() {
             <p style={{ color: '#555', lineHeight: 1.8 }}>{t('aboutMissionDesc', lang)}</p>
           </div>
           <div className="col-md-6 text-center">
-            <div style={{ background: '#f5f7fa', borderRadius: 20, padding: 40 }}>
+            <div className="bg-light-custom" style={{ borderRadius: 20, padding: 40 }}>
               <i className="bi bi-phone" style={{ fontSize: 80, color: '#2563eb' }}></i>
               <h3 className="fw-bold mt-3">PhoneMarket</h3>
               <p style={{ color: '#888' }}>Since 2020</p>
@@ -56,7 +56,7 @@ export default function About() {
       </section>
 
       <section className="container my-5 scroll-fade">
-        <div className="card border-0 shadow-sm p-5 text-center" style={{ background: '#f5f7fa' }}>
+        <div className="card border-0 shadow-sm p-5 text-center bg-light-custom">
           <h2 className="fw-bold mb-4">{t('aboutContact', lang)}</h2>
           <div className="d-flex flex-wrap justify-content-center gap-4">
             <div><i className="bi bi-geo-alt" style={{ color: '#2563eb' }}></i> {t('aboutAddress', lang)}</div>
